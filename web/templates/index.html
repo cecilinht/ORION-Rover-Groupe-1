@@ -1,0 +1,349 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ORION-Rover | Control Center</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+
+<body>
+
+<div class="dashboard">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            <div class="logo-icon">O</div>
+            <div>
+                <h2>ORION<span>-Rover</span></h2>
+                <small>CONTROL CENTER</small>
+            </div>
+        </div>
+
+        <p class="menu-label">MENU PRINCIPAL</p>
+
+        <nav>
+            <a href="#" class="active">◈ Tableau de bord</a>
+            <a href="#navigation">⌁ Navigation</a>
+            <a href="#capteurs">◎ Capteurs</a>
+            <a href="#livraisons">▣ Livraisons</a>
+            <a href="#">◷ Historique</a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="team">
+                <div class="avatar">G1</div>
+                <div>
+                    <strong>Groupe 1</strong>
+                    <small>ORION UNIVERSITY</small>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- CONTENU PRINCIPAL -->
+    <main class="content">
+
+        <!-- HEADER -->
+        <header class="topbar">
+
+            <div>
+                <p class="eyebrow">ORION UNIVERSITY / ROBOTICS</p>
+                <h1>Tableau de bord</h1>
+                <p class="subtitle">
+                    Surveillance et contrôle du rover autonome.
+                </p>
+            </div>
+
+            <div class="connection">
+                <span class="status-dot" id="connection-dot"></span>
+                <span id="connection-status">ESP32 non connecté</span>
+            </div>
+
+        </header>
+
+
+        <!-- ETAT DU ROBOT -->
+        <section class="overview">
+
+            <div class="glass-card robot-status">
+
+                <div class="card-heading">
+                    <span>ÉTAT DU ROBOT</span>
+                    <span class="tag" id="robot-status">EN ATTENTE</span>
+                </div>
+
+                <h2>ORION-Rover</h2>
+
+                <p>Le robot est prêt à recevoir une commande.</p>
+
+                <div class="robot-state">
+                    <span class="big-dot"></span>
+                    <span id="robot-message">Système en attente</span>
+                </div>
+
+            </div>
+
+            <div class="glass-card metric">
+                <span>VITESSE</span>
+                <strong>--</strong>
+                <small>cm / seconde</small>
+            </div>
+
+            <div class="glass-card metric">
+                <span>DISTANCE PARCOURUE</span>
+                <strong>--</strong>
+                <small>mètres</small>
+            </div>
+
+        </section>
+
+
+        <!-- CAPTEURS -->
+        <section class="sensor-section" id="capteurs">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">SURVEILLANCE</p>
+                    <h2>Capteurs ultrasoniques</h2>
+                </div>
+
+                <span class="live-label" id="sensor-live">
+                    ● DONNÉES EN DIRECT
+                </span>
+            </div>
+
+            <div class="sensor-grid">
+
+                <div class="glass-card sensor-card">
+                    <div class="sensor-icon blue">↑</div>
+                    <p>AVANT</p>
+                    <strong>
+                        <span id="front-distance">--</span>
+                        <small>cm</small>
+                    </strong>
+                    <span>Distance frontale</span>
+                </div>
+
+                <div class="glass-card sensor-card">
+                    <div class="sensor-icon purple">←</div>
+                    <p>GAUCHE</p>
+                    <strong>
+                        <span id="left-distance">--</span>
+                        <small>cm</small>
+                    </strong>
+                    <span>Distance à gauche</span>
+                </div>
+
+                <div class="glass-card sensor-card">
+                    <div class="sensor-icon red">→</div>
+                    <p>DROITE</p>
+                    <strong>
+                        <span id="right-distance">--</span>
+                        <small>cm</small>
+                    </strong>
+                    <span>Distance à droite</span>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- DETECTION DES OBSTACLES -->
+        <section class="glass-card obstacle-section">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">INTELLIGENCE DU ROBOT</p>
+                    <h2>Détection automatique des obstacles</h2>
+                </div>
+
+                <span class="tag">ANALYSE EN DIRECT</span>
+            </div>
+
+            <div class="obstacle-decision">
+
+                <p>DÉCISION DU SYSTÈME</p>
+
+                <h2 id="obstacle-decision">EN ATTENTE</h2>
+
+                <span id="obstacle-message">
+                    Analyse des distances en cours...
+                </span>
+
+            </div>
+
+            <div class="obstacle-grid">
+
+                <div class="obstacle-item">
+                    <span>AVANT</span>
+                    <strong id="front-obstacle-status">--</strong>
+                </div>
+
+                <div class="obstacle-item">
+                    <span>GAUCHE</span>
+                    <strong id="left-obstacle-status">--</strong>
+                </div>
+
+                <div class="obstacle-item">
+                    <span>DROITE</span>
+                    <strong id="right-obstacle-status">--</strong>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- NAVIGATION INTELLIGENTE -->
+        <section class="glass-card navigation-section" id="navigation">
+
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">SYSTÈME DE DÉCISION</p>
+                    <h2>Navigation intelligente</h2>
+                </div>
+
+                <span class="tag">MODE AUTOMATIQUE</span>
+            </div>
+
+            <div class="navigation-result">
+
+                <div class="navigation-icon" id="navigation-icon">
+                    ◆
+                </div>
+
+                <div>
+                    <p>DIRECTION CHOISIE</p>
+
+                    <h2 id="navigation-action">
+                        EN ATTENTE
+                    </h2>
+
+                    <span id="navigation-reason">
+                        En attente des données des capteurs.
+                    </span>
+                </div>
+
+            </div>
+
+            <div class="navigation-distances">
+
+                <div class="navigation-distance">
+                    <span>↑ AVANT</span>
+                    <strong id="navigation-front">-- cm</strong>
+                </div>
+
+                <div class="navigation-distance">
+                    <span>← GAUCHE</span>
+                    <strong id="navigation-left">-- cm</strong>
+                </div>
+
+                <div class="navigation-distance">
+                    <span>→ DROITE</span>
+                    <strong id="navigation-right">-- cm</strong>
+                </div>
+
+            </div>
+
+            <p class="navigation-note">
+                Décisions calculées par le système logiciel.
+                Les moteurs physiques ne sont pas encore commandés.
+            </p>
+
+        </section>
+
+
+        <!-- NAVIGATION ET LIVRAISON -->
+        <section class="lower-grid">
+
+            <!-- CARTE -->
+            <div class="glass-card map-card">
+
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">LOCALISATION</p>
+                        <h2>Navigation du rover</h2>
+                    </div>
+
+                    <span class="tag">CARTE</span>
+                </div>
+
+                <div class="map-placeholder">
+                    <div class="map-grid"></div>
+
+                    <div class="map-center">
+                        <div class="rover-marker">◆</div>
+                        <span>Position du rover non disponible</span>
+                    </div>
+                </div>
+
+            </div>
+
+
+            <!-- LIVRAISON -->
+            <div class="glass-card delivery-card" id="livraisons">
+
+                <p class="eyebrow">GESTION DES MISSIONS</p>
+
+                <h2>Nouvelle livraison</h2>
+
+                <p class="description">
+                    Choisissez un point de destination.
+                </p>
+
+                <form>
+
+                    <label for="destination">DESTINATION</label>
+
+                    <select id="destination" name="destination">
+                        <option value="">Sélectionner un point</option>
+                        <option value="A">Point A</option>
+                        <option value="B">Point B</option>
+                        <option value="C">Point C</option>
+                    </select>
+
+                    <button type="button" class="primary-button">
+                        Envoyer la mission →
+                    </button>
+
+                </form>
+
+                <button type="button" class="emergency-button">
+                    Arrêt d'urgence
+                </button>
+
+                <button type="button" class="reset-button">
+                    ↻ Réinitialiser le système
+                </button>
+
+            </div>
+
+        </section>
+
+
+        <!-- FOOTER -->
+        <footer>
+            ORION-Rover © 2026 · Groupe 1 · ORION UNIVERSITY Madagascar
+        </footer>
+
+    </main>
+
+</div>
+
+
+<!-- JAVASCRIPT -->
+<script src="{{ url_for('static', filename='js/dashboard.js') }}"></script>
+
+</body>
+</html>
